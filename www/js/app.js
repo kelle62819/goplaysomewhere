@@ -3,7 +3,7 @@
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
-var app = angular.module('starter', ['ionic','firebase'])
+var app = angular.module('starter', ['ionic','firebase','google-maps'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -33,6 +33,15 @@ app.factory("Profile", ["$firebase", function($firebase) {
 }]);
 app.controller("mainCtrl", ["$scope", "simpleLogin", "Profile", function($scope, simpleLogin, Profile) {
   $scope.auth = simpleLogin;
+
+  $scope.map = {
+      center: {
+          latitude: 45,
+          longitude: -73
+      },
+      zoom: 8
+  };
+  
   $scope.login = function(provider) {
      $scope.auth.$login(provider).then(function(user) {
       console.log("Logged in as: " + user.uid);
